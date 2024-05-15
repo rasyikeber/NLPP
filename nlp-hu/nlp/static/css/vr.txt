@@ -1,0 +1,183 @@
+# check similarity
+def check_similarity_with_projects(title, description, projects, threshold, project_type):
+    for project in projects:
+        title_similarity = calculate_similarity(title, project.title)
+        desc_similarity = calculate_similarity(description, project.description)
+        if title_similarity > threshold and desc_similarity > threshold:
+            flash(f'Similar project already exists in {project_type} projects', category='error')
+            return True
+    return False 
+ 
+ 
+ 
+ form =SubmitProject()
+  
+  currentUser = Student.query.filter_by(id=current_user.id).first()
+  grp_id = currentUser.group_id
+
+  if form.validate_on_submit():
+    title=form.title.data, description=form.description.data
+    project = Newproject(title=form.title.data, description=form.description.data,group_id=grp_id, pdpt=form.dept.data, year=form.year.data, date=form.submission_date.data)
+    
+    similarity_threshold = 0.70 
+    # Check for similarity with new projects
+    similarity_found = check_similarity_with_projects(title, description, Newproject.query.all(), similarity_threshold, 'New')
+    # Check for similarity with old projects
+    if not similarity_found:
+      similarity_found = check_similarity_with_projects(title, description, Oldproject.query.all(), similarity_threshold, 'Last year')
+        # Proceed with submission only if no similarity is found
+      if not similarity_found:
+        try:
+          db.session.add(project) # Get the current project count for the specific user from the session or default to 0 # Get the current project count for the specific user from the session or default to 0 
+          db.session.commit()
+          # Increment the project count
+          project_count += 1
+          # Update the session variable with the new project count specific to the user
+          session[f'project_count_{current_user.id}'] = project_count
+          flash(f'Project {project_count} submitted successfully', category='success')
+          # Check if the student has submitted two projects and redirect if true
+          if project_count == 2:
+            flash('You have successfully submitted two projects', category='success')
+            return redirect(url_for('home'))
+        except Exception as e:
+          db.session.rollback()
+          flash('Error submitting project. Please try again.', category='error')
+          print(f"Error: {str(e)}")
+
+  return render_template('submit.html',title='submit you project idea', form=form)
+
+
+
+
+if current_user.is_student:
+    print(current_user.name)
+    curnt_stud= Student.query.filter_by(id=current_user.id).first()
+    print(curnt_stud)
+    
+    form =FormGroup()
+    group_id = generate_group_id(curnt_stud.dpt)
+    curnt_stud.update_isgrpd_status_and_gr_id(True, group_id)
+    
+    print(stud1)
+    stud2 =form.Student2.data
+    print(stud1)
+    # Query the database for students with the given IDs
+    student1 = Student.query.filter_by(studid=stud1).first()
+    print(student1.name)
+    student2 = Student.query.filter_by(studid=stud2).first()
+    print(student2.name)
+
+      # Check if student1 and student2 are not already in a group
+    if not student1.is_grouped and not student2.is_grouped:
+        # Update the is_grouped and group_id for stud1 and stud2
+        student1.update_isgrpd_status_and_gr_id(True, group_id)
+        student2.update_isgrpd_status_and_gr_id(True, group_id)
+        flash(f"group created successfully: Good Luck! {curnt_stud.name}, {student1.name}, {student2.name}")
+        return redirect(url_for('home'))
+
+
+# Check if all students are valid before proceeding
+    # if new_student1 and new_student2 and curnt_stud and new_student1.is_student and new_student2.is_student and curnt_stud.is_student:
+    #     curnt_stud.update_isgrpd_status_and_gr_id(True, group_id)
+    #     new_student1.update_isgrpd_status_and_gr_id(True, group_id)
+    #     new_student2.update_isgrpd_status_and_gr_id(True, group_id)
+    #     flash(f"Group created successfully: {curnt_stud.name}, {new_student1.name}, {new_student2.name}")
+
+
+
+  # Get the logged-in user's ID
+    user_id = current_user.id
+    currentUser = Student.query.filter_by(id=user_id).first()
+
+    if currentUser.is_grouped:
+        return redirect(url_for('views.student_home'))
+
+    if request.method == 'POST':
+        group_id = generate_group_id(currentUser.dpt)  # Generate a unique group ID
+        currentUser.update_isgrpd_status_and_gr_id(True, group_id)
+
+        idno1 = request.form.get('idno1')
+        idno2 = request.form.get('idno2')
+
+        # Query the database for students with the given IDs
+        stud1 = Student.query.filter_by(studid=idno1).first()
+        stud2 = Student.query.filter_by(studid=idno2).first()
+
+        # Check if stud1 and stud2 are not already in a group
+        if not stud1.is_grouped and not stud2.is_grouped:
+            # Update the is_grouped and group_id for stud1 and stud2
+            stud1.update_isgrpd_status_and_gr_id(True, group_id)
+            stud2.update_isgrpd_status_and_gr_id(True, group_id)
+            flash("group created successfully")
+            return redirect(url_for('views.detect_and_submit'))
+
+
+    return render_template("form-group.html")
+
+@app.route('/submit', methods=['GET', 'POST'])
+def submit_project():
+    form = SubmitProject()
+    currentUser = Student.query.filter_by(id=current_user.id).first()
+    grp_id = currentUser.group_id
+
+    # Load the model
+    model = BertForSTS()
+    model.load_state_dict(torch.load(PATH))
+    model.eval()
+
+    if form.validate_on_submit():
+        title = form.title.data
+        description = form.description.data
+        project = Newproject(title=title, description=description, group_id=grp_id, pdpt=form.dept.data, year=form.year.data, date=form.submission_date.data)
+        
+        similarity_threshold = 0.70 
+
+        # Calculate similarity with other projects
+        similarity_found = False
+        
+        # Check for similarity with new projects
+        new_projects = Newproject.query.all()
+        for new_project in new_projects:
+            sim = predict_similarity((title, new_project.title), (description, new_project.description))
+            if sim >= similarity_threshold:
+                similarity_found = True
+                break
+
+        # Check for similarity with old projects if not found in new projects
+        if not similarity_found:
+            old_projects = Oldproject.query.all()
+            for old_project in old_projects:
+                sim = predict_similarity((title, old_project.title), (description, old_project.description))
+                if sim >= similarity_threshold:
+                    similarity_found = True
+                    break
+
+        # Proceed with submission only if no similarity is found
+        if not similarity_found:
+            try:
+                db.session.add(project)
+                db.session.commit()
+                flash(f'Project submitted successfully', category='success')
+                return redirect(url_for('home'))
+            except Exception as e:
+                db.session.rollback()
+                flash('Error submitting project. Please try again.', category='error')
+                print(f"Error: {str(e)}")
+    return render_template('submit.html', title='submit your project idea', form=form)
+
+
+
+
+
+
+
+
+# from flask import render_template, flash, redirect, url_for,request,session,jsonify
+# from nlp.forms import RegistrationForm, LoginForm, AddProject, SubmitProject, DeptRegistrationForm, DeptLoginForm, AdvRegistrationForm,AdvLoginForm
+# from  nlp.models import User, Student, Adviser,Newproject,Oldproject
+# from nlp.text_similarity import calculate_similarity
+# from flask_login import login_user, current_user, logout_user, login_required
+# from nlp import app, db, bcrypt
+# from functools import wraps
+# import random,time
+# from collections import defaultdict

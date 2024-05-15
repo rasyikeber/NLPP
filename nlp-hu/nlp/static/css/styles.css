@@ -1,0 +1,49 @@
+
+
+* {
+  position: relative;
+  /* box-sizing: border-box; */
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+
+/* Typography */
+.center {
+  text-align: center;
+}
+
+
+
+
+/* Header */
+.header {
+
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  font-weight: 600;
+  color:white;
+  /* background: #236be8
+   */
+  background-color: white;
+
+}
+
+.footer {
+  padding: 16px 30px 14px;
+  font-size: 14px;
+  /* top: 15px; */
+  line-height: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  color:white;
+  background: #18181a
+  
+}

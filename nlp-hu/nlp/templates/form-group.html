@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row justify-content-center">
+      <div class="col-md-6">
+          <div class="p-4">
+            <h1 align="center">Create Group</h1>
+            <form method="POST" action="{{ url_for('student.form_group') }}">
+              <h3 align="center">Enter Your Friend's ID number</h3>
+              <div class="form-group">
+                <label for="idno1">ID number 1</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="idno1"
+                  name="idno1"
+                  placeholder="enter id"
+               4 />
+              </div>
+              <div class="form-group">
+                <label for="idno2">ID number 2</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="idno2"
+                  name="idno2"
+                  placeholder="enter ID"
+                />
+              </div>
+              <br />
+              <div class="text-center">
+              <button type="submit" class=" btn btn-primary">Create</button>
+              </div>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>
+<div  style="margin-top: 102px;"></div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <p class="advname">Welcome, Mr. {{ current_user.name }}</p>
+    {% for project, students in projects_with_students.items() %}
+    <div class="card my-4 cardmain">
+        <div class="card-body">
+            <h3 style="padding-left: 90px;"> Department--{{ project.pdpt }}</h3>
+            <div class="group">
+
+                <img src="../static/images/group.png" width="150" alt="" style="padding-left: 60px;">
+               
+                <ul class="list-group list-group-flush">
+                    {% for student in students %}
+                    <li class="">{{ student.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <h3>Title: {{ project.title }}</h3>
+            <p class="card-text">Description: {{ project.description }}<span>read more</span></p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<!-- <div style="margin-top: 340px;"></div> -->
+{% endblock %}
+

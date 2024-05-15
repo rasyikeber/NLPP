@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="">
+    <div class="col-md-8 offset-md-2">
+        <div style="overflow-x: hidden;">
+            <h2 class="advname"> Welcome: {{ currentUser.name }}</h2> <!-- Corrected syntax to access user's name -->
+            <div class="wrapper">
+                <div class="groups">
+                    <h5 class="">Your Group Mate:</h5>
+                    <img src="../static/images/group2.png" width="60" style="padding-left: 20px;" alt="">
+                {% if groupStud %}
+                    <div class=" stud">
+                        {% for stud in groupStud %}
+                        <p class="studp">{{loop.index}}: {{stud.name}}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <p>you are alone, you should make group!</p>
+                {% endif %}
+                </div>
+            <div style="margin-top: 20px;">
+                <h5 class="">Your adviser is: {{ adv.name }}<h5/>
+                <span style="padding-left: 20px;"><img src="../static/images/email.png" width="30" alt=""></span><a href="mailto:{{adv.email}}" class="advemail"> {{adv.email}}</a>   
+            </div>
+            </div>
+       {% if userProject %}
+    
+          {% if userProject|length == 1 %}
+              <h3 style="padding-left: 40px; padding-top: 30px;">Your approved project idea </h3>
+              <div class="card-deck">
+                  {% for project in userProject %}
+                      <div class="card ">
+                          <div class="card-body cardmain {% if userProject|length == 1 %}bg-success{% endif %}">
+                              <h5 class="card-title" style="color: white;">Project {{ loop.index }}: {{ project.title }}</h5>
+                              <p class="card-text">{{ project.description }} <span>read more</span></p>
+                          </div>
+                      </div>
+                  {% endfor %}
+              </div>
+          {% else %}
+              <div class="card-deck">
+                  {% for project in userProject %}
+                      <div class="card">
+                          <div class="card-body">
+                              <h5 class="card-title">Project {{ loop.index }}: {{ project.title }}</h5>
+                              <p class="card-text">{{ project.description }}</p>
+                          </div>
+                      </div>
+                  {% endfor %}
+              </div>
+          {% endif %}
+      {% else %}
+          <p>No projects available.</p>
+      {% endif %}
+        </div>
+    </div>
+  </div>
+  
+     
+    <!-- <div style="margin-top: 270px;"></div> -->
+{% endblock %}

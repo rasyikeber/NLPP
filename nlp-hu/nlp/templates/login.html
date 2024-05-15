@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid body-background-login">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+         <div class="image-container position-relative">
+            <img src="../static/images/Team-pana.png" alt="" class="full-width-image">
+            <h1 class="hero">Problem Solver Project Idea</h1>
+          </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4">
+          <div style="width: 300px;">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                  <legend style="color: white;" class="form-group mb-4 text-center">Login Here</legend>
+                  <div class="form-group">
+                    {{ form.studid.label(class="form-control-label",style="color: white;") }} 
+                    {{ form.studid(class="form-control form-control-lg") }} 
+                  </div>
+                  <div class="form-group">
+                    {{ form.password.label(class="form-control-label",style="color: white;") }} 
+                    {{ form.password(class="form-control form-control-lg") }} 
+                  </div>
+                  <div class="form-check">
+                    {{ form.remember(class="form-check-input") }}
+                    {{ form.remember.label(class="form-check-label", style="color: white;") }}
+                  </div>
+                </fieldset>
+                <div class="mybtn form-group text-center">
+                  {{ form.submit(class="btn", style="color: white; font-size:25px") }}
+                </div>
+              </form>
+          </div>
+          <div class="pt-3 text-center">
+            <h6 style="color: white; font-size:20px;" class="">need an account <a href="{{ url_for('student.register') }}" class="ml-2" style="padding-left:20px; text-decoration: none; color:white;"><span><img src="../static/images/arrow.png" width="30" alt=""></span> sign up</a></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FAQ -->
+  <section class="container hidden" id="faq-container">
+    <div class="container">
+        <h1>Frequently Asked Questions</h1>
+        <div class="faq-item">
+            <h2 class="faq-question faq-toggle">What is Lorem Ipsum?</h2>
+            <div class="faq-answer">
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <h2 class="faq-question faq-toggle">Why do we use it?</h2>
+            <div class="faq-answer">
+                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+          <h2 class="faq-question faq-toggle">What is Lorem Ipsum?</h2>
+          <div class="faq-answer">
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+          </div>
+      </div>
+      <div class="faq-item">
+          <h2 class="faq-question faq-toggle">Why do we use it?</h2>
+          <div class="faq-answer">
+              <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+          </div>
+      </div>
+      <div class="faq-item">
+        <h2 class="faq-question faq-toggle">What is Lorem Ipsum?</h2>
+        <div class="faq-answer">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        </div>
+    </div>
+    <div class="faq-item">
+        <h2 class="faq-question faq-toggle">Why do we use it?</h2>
+        <div class="faq-answer">
+            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+        </div>
+    </div>
+    <div class="faq-item">
+      <h2 class="faq-question faq-toggle">What is Lorem Ipsum?</h2>
+      <div class="faq-answer">
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+      </div>
+  </div>
+  <div class="faq-item">
+      <h2 class="faq-question faq-toggle">Why do we use it?</h2>
+      <div class="faq-answer">
+          <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+      </div>
+  </div>
+    </div>
+</section>
+   <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var image = document.querySelector('.full-width-image');
+      image.addEventListener('load', function() {
+        image.classList.add('loaded');
+      });
+    });
+
+     // JavaScript for toggling answers visibility
+     document.addEventListener('DOMContentLoaded', function () {
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      const faqLink = document.querySelector('.nav-link');
+      const faqContainer = document.getElementById('faq-container');
+
+      faqQuestions.forEach(function (question) {
+          question.addEventListener('click', function () {
+              const answer = this.nextElementSibling;
+              answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+              this.classList.toggle('expanded');
+          });
+      });
+
+      faqLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          faqContainer.classList.toggle('hidden');
+          faqContainer.scrollIntoView({ behavior: 'smooth' });
+      });
+  });
+  </script>
+
+<!-- <div  style="margin-top: 76px;"></div> -->
+{% endblock %}

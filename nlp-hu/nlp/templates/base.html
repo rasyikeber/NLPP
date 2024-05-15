@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href=../static/images/icon-group-projec.svg" type="image/x-icon"/>
+  
+  {% if title %}
+        <title>NLP - {{ title }}</title>
+    {% else %}
+        <title>AI-PISP</title>
+    {% endif %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/aprove.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  {% include "hdr-and-foter/header.html" %}
+  {% block content %}
+    {# Template inserted here #}
+  {% endblock %}
+  {% include "hdr-and-foter/footer.html" %}
+</body>
+</html>

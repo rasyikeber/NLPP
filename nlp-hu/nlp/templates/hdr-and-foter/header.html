@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}base{% endblock %}</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+   rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}"> -->
+  <style>
+    /*  .navbar-toggler-icon {
+      color: white !important; Set the color to white 
+    } */
+
+    .custom-dropdown {
+      position: relative;
+      display: inline-block;
+      margin-left: 40px;
+      
+  }
+
+  .custom-dropdown select {
+      appearance: none;
+      background: linear-gradient(to right, #6146d5, #660377);
+      color: white;
+      padding: 10px;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+  }
+  
+  .custom-dropdown select option {
+      background-color: #6146d5;
+      color: white;
+  }
+  
+    .login-background {
+      width: 200px;
+      background: linear-gradient(to right, #6146d5, #660377);
+      border-radius: 9999px; /* Set border-radius for full rounding */
+      color: white;
+    }
+
+   .mob{
+    display: none;
+   }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+  
+  .header-padd {
+      display: flex;
+      align-items: center;
+      padding-left: 700px;
+  }
+ /* push the toggle botton to right side */
+ .togpd{
+  margin-left: 400px;
+ }
+
+  @media (max-width: 767.98px) {
+    /* Tablet view */
+    .header-padd {
+      width: 90px;
+        padding-left: 520px; 
+    }
+    .login-background{
+      display: none;
+      }
+}
+.header-content {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width:767.98px) {
+  /* Tablet view */
+  .header-content {
+      margin-left: 90px; /* Padding between image and toggle button */
+  }
+  .hid{
+    display:none;
+  }
+  .mob{
+    display: inline;
+  }
+}
+  </style>
+</head>
+<body>
+  <header class="header color-y">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <!-- <a class="navbar-brand" href="#" style="color: white;">HU</a> -->
+        <div>
+          <span>
+            <img src="../static/images/logo.png" width="100" style="padding-left: 40px; cursor: pointer;" alt="">
+            <span style="color: #660377; font-size:25px;">HUPIS</span>
+          </span>
+          <button class=" togpd navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">&#9776;</span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            {% if current_user.is_authenticated and current_user.is_student %}
+              <a class="nav-link " href="{{ url_for('student.home') }}" style="color: white;">Home</a>
+              <a class="nav-link " href="{{ url_for('student.form_group') }}" style="color: white;">form group</a>
+              <a class="nav-link " href="{{ url_for('student.submit_projectidea') }}" style="color: white;">submit project idea</a>
+              <a class="nav-link " href="{{ url_for('student.logout') }}" style="color: white;">log out</a>
+              
+            {% elif current_user.is_authenticated and current_user.is_adviser %}
+            <a class="nav-link " href="{{ url_for('advisors.adv_home') }}" style="color: white;">home</a>
+              <a class="nav-link " href="{{ url_for('advisors.adv_logout') }}" style="color: white;">log out</a>
+            {% elif current_user.is_authenticated and current_user.is_dpthead %} 
+              <a class="nav-link " href="{{ url_for('dept.dashboard_project') }}" style="color: white;">Home</a>
+              <a class="nav-link " href="{{ url_for('dept.dept_home') }}" style="color: white;">assign adviser</a>
+              <a class="nav-link " href="{{ url_for('dept.add_project_idea') }}" style="color: white;">add project idea</a>
+              <a class="nav-link " href="{{ url_for('dept.dept_logout') }}" style="color: white;">logout</a>
+
+            {% else %}
+              <div class="header-padd">
+                <div class="login-background">
+                  <a class="nav-link" href="#faq-container" style="color: white; font-size: 25px;">FAQ</a>
+
+                </div>
+                <!-- <span style="color: aqua; font: size 100px; padding-top:8px">|</span> -->
+                <div class="custom-dropdown">   
+                  <select id="loginSelect" class="form-select" style=" padding-left: 26px; width:90px; border-radius: 9999px; " aria-label="Default select example" onchange="redirectToRoute(this.value)">
+                    <option id="defaultOption" selected style="color: #e6f2ff;">Staff</option>  
+                    <!-- <option class="mob" value="{{ url_for('student.login') }}">students</option> -->
+                    <option value="{{ url_for('student.login') }}">students</option>
+                    <option value="{{ url_for('dept.dept_login') }}">Dept</option>
+                    <option value="{{ url_for('advisors.adv_login') }}">Advisor</option>
+                  </select>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-{{category}}" role="alert">
+    {{message}}
+    <button type="button" class="close ms-auto" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <div class="container">
+    {% block content%} {% endblock %}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+   integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <!-- <script type="text/javascript" src="./static/index.js"></script> -->
+  <script>
+    // Custom JavaScript to handle closing of alerts
+    document.addEventListener('DOMContentLoaded', function () {
+      const alertCloseButtons = document.querySelectorAll('.alert .close');
+      alertCloseButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          const alert = this.parentNode;
+          alert.parentNode.removeChild(alert);
+        });
+      });
+    });
+     // custom javascript to handle staf routing
+    function redirectToRoute(route){
+      window.location.href = route;
+  }
+// mobile view login select
+
+window.addEventListener('DOMContentLoaded', function() {
+  var viewportWidth = window.innerWidth;
+  var loginSelect = document.getElementById('loginSelect');
+  var defaultOption = document.getElementById('defaultOption');
+  if (viewportWidth <= 767.98) {
+      defaultOption.textContent = ' Here';
+  } else {
+      defaultOption.textContent = 'Staff';
+  }
+});
+
+  </script>
+</body>
+</html>

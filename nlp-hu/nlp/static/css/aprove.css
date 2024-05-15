@@ -1,0 +1,310 @@
+.containerr{
+  margin: 40px;
+  margin-top: 0;
+  /* background: linear-gradient(to right, #21264d  , #ffffff);; */
+}
+
+.name{
+  display: flex;
+  background:linear-gradient(35deg,rgb(36, 22, 66), rgb(53, 4, 3));
+  justify-content: center;
+  justify-items: center;
+
+}
+.nameitem p{
+  /* color: white; */
+  margin: 0;
+  font-weight: 700;
+  color: #ffffff;  
+}
+
+
+.project{
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  gap: 30px;
+  padding: 30px;
+  color: #000;
+  background: linear-gradient(35deg,rgb(31, 20, 55), rgb(35, 32, 63));
+
+}
+
+.projecitems{
+  color: rgb(252, 239, 239);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:16px ;
+  font-weight: 900;
+  position: relative;
+}
+.if_approved{
+  width: 600px;
+  left: 20%;
+}
+
+  
+  
+  
+  
+  
+  
+  
+  /* Style for the anchor tag */
+
+ 
+
+  .buttonrej {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: rgb(243, 12, 20);
+  color: white;
+  text-decoration: none;
+  font-size: xx-large;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  left: 12%;
+  transform: translateX(-50%);
+  }
+  .buttonrej:hover {
+    color: white;
+  }
+  .buttonapp:hover {
+    color: white;
+  }
+  .buttonapp{
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: rgb(6, 133, 44);
+    color: white;
+    text-decoration: none;
+    font-size: xx-large;
+    border-radius: 5px;
+    
+    cursor: pointer; 
+  }
+  .project-list {
+    border: 1px solid #000;
+    padding: 10px;
+}
+.project-list li {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.assigned{
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: rgb(70, 214, 246);
+  color: green;
+  text-decoration: none;
+  font-size: xx-large;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.approved {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #ccc; /* Disabled button color */
+  color: #666; /* Text color */
+  border: none;
+  border-radius: 4px;
+  cursor: not-allowed;
+}
+.correct {
+  color: green; /* Green color for the checkmark */
+  margin-right: 8px; /* Space between the checkmark and text */
+}
+
+.advproject_list{
+ background:linear-gradient();
+}
+
+/* advisor style start */
+.advname { 
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 30px;
+  width: 600px;
+  font-weight: 600;
+  background: linear-gradient(to right, #FB001B  , #660377);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cardmain{
+  
+  background: linear-gradient(to left, 	#4000ff  , #660377);
+}
+.cardmain h3{
+margin-top: 20px;
+
+}
+.cardmain h3,p{
+  color: white;
+  left: auto;
+  max-width: 700px;
+  margin-left: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.cardmain p span{
+background-color: #800040;
+border-radius: 1.5rem;
+padding: 4px;
+padding-top: 0;
+margin-left: 10px;
+margin: 5px;
+cursor: pointer;
+}
+
+ul {
+padding: 0;
+margin: 10px;
+max-width: 300px;
+position: relative;
+}
+
+li {
+padding: 0.5rem 1.5rem 0.5rem;
+border-radius: 1.5rem;
+background: #4000ff;
+list-style: none;
+margin: 5px;
+color: white;
+font-size: larger;
+font-weight: 500;
+}
+.group{
+  display: flex;
+  gap: 30px;
+  justify-items: center;
+}
+/* advisor style end */
+
+/* student home style start */
+.wrapper{
+  display: flex;
+  justify-content: space-around;
+  justify-items: center;
+
+}
+.groups{
+  /* display: flex; */
+  margin-top: 15px;
+  /* column-gap: 30px; */
+  /* justify-items: center; */
+}
+.stud p{
+  color: #800040;
+}
+ .advemail{
+  margin-top: 0;
+  padding-left: 18px;
+  font-size: 18px;
+  width: 600px;
+  font-weight: 600;
+  background: linear-gradient(to right, #6146d5  , #660377);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+ }
+
+/* student home style end */
+
+/* student login style start */
+.body-background-login{
+  height: 90vh;
+  /* background: linear-gradient(to right, #6146d5  047cc7 , #660377); */
+  background: linear-gradient(45deg, white, #660377);
+}
+.mybtn {
+  /* Add your custom styles here */
+  margin-top: 10px;
+  margin-left: 17px;
+  width: 200px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  background: linear-gradient(to right, #660377, #6146d5);
+  border-radius: 9999px; /* Set border-radius for full rounding */
+  
+}
+
+.full-width-image {
+  width: 100%;
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+}
+.full-width-image.loaded {
+  opacity: 1;
+}
+
+.image-container {
+  position: relative;
+}
+
+.hero {
+  position: absolute;
+  top: 15%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 36px;
+  z-index: 1; /* Ensure text appears above the image */
+}
+
+/*FAQ CSS Styles */
+.faq-question {
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+  position: relative;
+}
+.faq-answer {
+  display: none;
+  margin-bottom: 20px;
+ 
+  background-color: #6146d5; /* Optional: If you want to explicitly set the background color */
+  padding: 10px; /* Optional: Add padding for better readability */
+}
+.faq-toggle::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 20px;
+}
+.faq-toggle.expanded::after {
+  content: '-';
+}
+.hidden {
+  display: none;
+}
+
+/* student login style end */
+
+/* student signup style start */
+.body-background{
+  height: 100vh;
+  /* background: linear-gradient(to right, #6146d5  , #660377); */
+  background: linear-gradient(45deg, #A954F4, #660377);
+}
+/* student login style end */
+
+
+
+/* department login style start */
+ .dept-bacground{
+  height: 80vh;
+  background: linear-gradient(45deg,  #660377, white);
+
+ }
+/* department login style end */
+
+.adv-bacground{
+  height: 80vh;
+  background: linear-gradient(45deg,  #660377, white);
+}

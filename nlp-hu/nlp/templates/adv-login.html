@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container-fluid adv-bacground">
+    <div class="row justify-content-center">
+      <div  class="col-md-6">
+        <div class="p-4">
+          <form method="POST" action="{{ url_for('advisors.adv_login') }}">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+              <legend class="form-group mb-4">Advisor login here</legend>
+              <div class="form-group">
+                  {{ form.email.label(class="form-control-label",style="color: white;") }} 
+                  {{ form.email(class="form-control form-control-sm") }} 
+              </div>
+
+             
+              <div class="form-group">
+                {{ form.password.label(class="form-control-label",style="color: white;") }} 
+                {{ form.password(class="form-control form-control-sm") }} 
+              </div>
+              <div class="form-check">
+                {{ form.remember(class="form-check-input") }}
+                {{ form.remember.label(class="form-check-label", style="color: white;") }}
+              </div>
+            </fieldset>
+            <!-- <div class="form-group text-center">{{ form.submit(class="btn btn-outline-info") }}</div> -->
+            <div class="mybtn form-group text-center">
+              {{ form.submit(class="btn", style="color: white; font-size:25px") }}
+            </div>
+          </form>
+          
+        <div class="pt-3 text-center">
+          <h6 style="color: white; font-size:20px;" class="">need an account <a href="{{url_for('advisors.adv_signup') }}" class="ml-2" style="padding-left:20px; text-decoration: none; color:white;"><span><img src="../static/images/arrow.png" width="30" alt=""></span> sign up</a></h6>
+        </div>
+          </div>
+      </div>
+    </div>
+  </div>
+    
+  </div>
+{% endblock %}

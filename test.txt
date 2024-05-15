@@ -1,0 +1,12 @@
+<ul class="project-list">
+                    {% for project in group_data.projects %}
+                       {% status=apprrrtoved %}
+                        <li>
+                            <strong>Project ID:</strong> {{ project.id }} <br>
+                            <strong>Title:</strong> {{ project.title }} <br>
+                            <strong>Description:</strong> {{ project.description }} <br>
+                            <h5 class="approveButton buttonapp-like-link" id="" data-projectid="{{ project.id }}">approve</h5>
+                        </li>
+                        {% endfor %} 
+                    <h6 class="rejectButton button-like-link" id="" data-group-id="{{ group_data.group_id }}">Reject this Idea</h6>
+                </ul>

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="containerr">
+      <h4 style="padding-left: 25px;">Welcome to the Department Dashboard page</h4>
+      <h2 style="padding-left: 25px;" class="advname"> Welcome: {{ user.name }}</h2>
+      {% if grouped_data %}
+        <h2 style="padding-left: 25px;">List of Projects:</h2>
+        <div>
+            {% for group_data in grouped_data %}
+            <div>
+               <!-- <h3>Group ID: {{ group_data.group_id }}</h3>-->
+                <div class="name">
+                  <div class="nameitem">
+                    <strong style="color: white;">Group members:</strong>
+                  {% for student in group_data.students %}
+                      {% if student.group_id == group_data.group_id %}
+                          <p>{{loop.index}}: {{ student.name }}</p>
+                      {% endif %}
+                  {% endfor %}
+                  </div>
+              </div>
+                <div class="project-list project ">
+                   {% for project in group_data.projects %}
+                    <div class="projecitems  {% if project.is_approved %}if_approved{% endif %}">
+                        <!--<strong>Project ID:</strong> {{ project.id }} <br>-->
+                        <h2>Title: {{ project.title }}</h2> <br>
+                        <strong>Description:</strong> <div>{{ project.description }} </div><br>
+                        {% if project.is_approved %}
+                        <h5 class="approved mt-4"><span class="correct">&#10004;</span> Approved</h5>
+                        {% else %}
+                            <h5 class="approveButton buttonapp mt-4" id="" data-projectid="{{ project.id }}">Approve</h5>
+                            <h6 class="rejectButton buttonrej mt-4" id="" data-group-id="{{ group_data.group_id }}">Reject this Idea</h6>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                        <!-- ? add a project status  eg. approved and based on it remove the approve and the reject button using if condition -->       
+                </div>
+            </div>
+              
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No projects found for your department.</p>
+    {% endif %}
+  </div>
+     <script src="{{ url_for('static', filename='js/myscript.js') }}"></script>
+
+{% endblock %}
+<!-- <script src="{{ url_for('static', filename='js/myscript.js') }}"></script> -->

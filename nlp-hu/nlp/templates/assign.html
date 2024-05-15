@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div>
+      <h4 style="padding-left: 200px;">Welcome to the Assign Advisor to Project Idea</h4>
+      <h2 style="padding-left: 300px;" class="advname"> Welcome: {{ user.name }}</h2> <!-- Corrected syntax to access user's name -->
+    </div>
+     
+    <div class="">
+        <div class="col-md-10 offset-md-1 ">
+            <table class="table">
+                <thead style="background-color: rgb(7, 162, 194); color: aliceblue;">
+                    <tr>
+                        <th>NO</th>
+                        <th>Project Idea Title</th>
+                        <th >assigned advisor</th>
+                        <th>Assign Advisor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
+                    <tr {% if loop.index % 2 == 0 %} style="background-color: rgb(233, 201, 225);" {% else %} style="background-color: rgb(181, 224, 223);" {% endif %}>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ project.title }}</td>
+                         <!-- this group id is just a place holder , it needs to be replaced with the advier name in the new project -->
+                        <!-- <td style="padding-left: 300px;">{{ project.group_id }}</td> -->
+                        {% if project.adviser_name %}
+                        <td>{{ project.adviser_name }}</td>
+                         {% else %}
+                             <td>None</td>
+                        {% endif %}
+      
+                        <td>
+                            <!-- Form to submit selected advisor -->
+                            <form  action="{{ url_for('dept.assign_advisor') }}" method="POST" id="advisor-form-{{ loop.index }}">
+                               <!-- Hidden input to pass dynamic project.groupID -->
+                              <input type="hidden" name="groupID" value="{{ project.group_id }}">  
+                              <select name="advisor_name" id="advisor-select" class="form-control" style="width: 150px; background-color: rgb(219, 56, 143); color:white; cursor: pointer;" onchange="submitForm({{ loop.index }})">
+                                  <!-- Add default option -->
+                                  {% if project.adviser_name %}
+                                      <option class="text-center assigned">assigned</option>
+                                  {% else %}
+                                      <option class="text-center">Assign</option>
+                                  {% endif %}
+                                  <option class="">
+                                      <h3 class="mb-2">
+                                          <u><strong>NAME -------------</strong></u>
+                                      </h3>
+                                      <u><h4 class="mb-0">SPECIALITY</h4></u>
+                                  </option>
+                                  <!-- Loop through advisors -->
+                                  {% for advisor in advisors %}
+                                      <option value="{{ advisor.name }}">
+                                          {{ advisor.name }} -- {{ advisor.special_in }}
+                                      </option>
+                                  {% endfor %}
+                              </select>
+                              
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+     <div style="margin-top: 200px;"></div>
+     <script>
+      function submitForm(index) {
+          // Find the form by its ID
+          const form = document.getElementById(`advisor-form-${index}`);
+          if (form) {
+              // Submit the form
+              form.submit();
+          }
+      }
+      
+  </script>
+{% endblock %}
+
+
+    <!-- 
+      <td> 
+             <span style="font-size: 24px;color:green;">
+                <a href="/{{student.id}}/edit"> <i class="fas fa-edit"></i></a> </span>
+             |<span style="font-size: 24px;color:red;">  
+                <a href="/{{student.id}}/delete"> <i class="fas fa-trash-alt"></i></a></span></td>
+         
+     -->
