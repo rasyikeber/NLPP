@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="container-fluid">
+<div class="container-fluid form-group-bg">
   <div class="row justify-content-center">
       <div class="col-md-6">
           <div class="p-4">
@@ -16,10 +16,10 @@
                   class="form-control"
                   id="idno1"
                   name="idno1"
-                  placeholder="enter id"
+                  placeholder="enter ID"
                4 />
               </div>
-              <div class="form-group">
+              <div class="form-group" style="padding-top:10px;">
                 <label for="idno2">ID number 2</label>
                 <input
                   type="number"
@@ -30,13 +30,12 @@
                 />
               </div>
               <br />
-              <div class="text-center">
-              <button type="submit" class=" btn btn-primary">Create</button>
+              <div class="text-center btngroup">
+              <button type="submit" class=" btn" style="color:white; font-size:25px;">Create</button>
               </div>
             </form>
           </div>
       </div>
   </div>
 </div>
-<div  style="margin-top: 102px;"></div>
 {% endblock %}

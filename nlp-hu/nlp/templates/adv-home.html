@@ -1,27 +1,56 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <p class="advname">Welcome, Mr. {{ current_user.name }}</p>
+<div class="container-fluid adv-home-background">
+    <p class="advname" style="padding: 50px 80px;">Welcome, Mr. {{ current_user.name }}</p>
+    
     {% for project, students in projects_with_students.items() %}
-    <div class="card my-4 cardmain">
-        <div class="card-body">
-            <h3 style="padding-left: 90px;"> Department--{{ project.pdpt }}</h3>
-            <div class="group">
-
-                <img src="../static/images/group.png" width="150" alt="" style="padding-left: 60px;">
-               
-                <ul class="list-group list-group-flush">
+    <div class="row justify-content-center adv-dsp">
+           <div class="col-md-4">
+            <div class="adv-group-box box1 adv-group">
+                <div class="stud-adv">
+                    <img src="../static/images/group.png" width="150" alt="" style="padding-left: 60px;">
                     {% for student in students %}
-                    <li class="">{{ student.name }}</li>
+                    <p class="studp-adv">{{ student.name }}</p>
                     {% endfor %}
-                </ul>
+                </d>
+                <h3> Department: {{ project.pdpt }}</h3>
             </div>
-            <h3>Title: {{ project.title }}</h3>
-            <p class="card-text">Description: {{ project.description }}<span>read more</span></p>
-        </div>
-    </div>
+            </div>
+           </div>
+           <div class="col-md-6 adv-home-project box2">
+            <div class="adv-cardmain">
+                <h3>Title: {{ project.title }}</h3>
+                <p class="description">Description: {{ project.description }}</p>
+                <button class="adv-read-more read-more-btn">Read more</button>
+                <button class="show-less-btn" style="display: none;">Show less</button>
+            </div>
+          </div>
+          
+    
     {% endfor %}
+ </div>
 </div>
-<!-- <div style="margin-top: 340px;"></div> -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.adv-cardmain').forEach(function(card) {
+          const readMoreBtn = card.querySelector('.read-more-btn');
+          const showLessBtn = card.querySelector('.show-less-btn');
+          const description = card.querySelector('.description');
+      
+          readMoreBtn.addEventListener('click', function() {
+            description.classList.add('expanded');
+            readMoreBtn.style.display = 'none';
+            showLessBtn.style.display = 'inline';
+          });
+      
+          showLessBtn.addEventListener('click', function() {
+            description.classList.remove('expanded');
+            readMoreBtn.style.display = 'inline';
+            showLessBtn.style.display = 'none';
+          });
+        });
+      });
+      
+</script>
 {% endblock %}
 

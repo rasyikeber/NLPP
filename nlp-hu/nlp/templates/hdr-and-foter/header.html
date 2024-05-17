@@ -113,13 +113,13 @@
               <a class="nav-link " href="{{ url_for('student.logout') }}" style="color: #660377; font-size:20px; padding-left:350px;">log out</a>
               
             {% elif current_user.is_authenticated and current_user.is_adviser %}
-            <a class="nav-link " href="{{ url_for('advisors.adv_home') }}" style="color: white;">home</a>
-              <a class="nav-link " href="{{ url_for('advisors.adv_logout') }}" style="color: white;">log out</a>
+            <a class="nav-link " href="{{ url_for('advisors.adv_home') }}" style="color: #660377; padding-left:50px; font-size:20px;">home</a>
+              <a class="nav-link " href="{{ url_for('advisors.adv_logout') }}" style="color: #660377; padding-left:650px; font-size:20px;">log out</a>
             {% elif current_user.is_authenticated and current_user.is_dpthead %} 
-              <a class="nav-link " href="{{ url_for('dept.dashboard_project') }}" style="color: white;">Home</a>
-              <a class="nav-link " href="{{ url_for('dept.dept_home') }}" style="color: white;">assign adviser</a>
-              <a class="nav-link " href="{{ url_for('dept.add_project_idea') }}" style="color: white;">add project idea</a>
-              <a class="nav-link " href="{{ url_for('dept.dept_logout') }}" style="color: white;">logout</a>
+              <a class="nav-link " href="{{ url_for('dept.dashboard_project') }}" style="color: #660377; padding-left:50px; font-size:20px;">Home</a>
+              <a class="nav-link " href="{{ url_for('dept.dept_home') }}" style="color: #660377; padding-left:50px; font-size:20px;">assign adviser</a>
+              <a class="nav-link " href="{{ url_for('dept.add_project_idea') }}" style="color: #660377; padding-left:50px; font-size:20px;">add project idea</a>
+              <a class="nav-link " href="{{ url_for('dept.dept_logout') }}" style="color: #660377; padding-left:50px; font-size:20px;">logout</a>
 
             {% else %}
               <div class="header-padd">
@@ -130,7 +130,7 @@
                 <!-- <span style="color: aqua; font: size 100px; padding-top:8px">|</span> -->
                 <div class="custom-dropdown">   
                   <select id="loginSelect" class="form-select" style=" padding-left: 26px; width:90px; border-radius: 9999px; " aria-label="Default select example" onchange="redirectToRoute(this.value)">
-                    <option id="defaultOption" selected style="color: #e6f2ff;">Staff</option>  
+                    <option id="defaultOption" selected style="color: #e6f2ff;">Login</option>  
                     <!-- <option class="mob" value="{{ url_for('student.login') }}">students</option> -->
                     <option value="{{ url_for('student.login') }}">students</option>
                     <option value="{{ url_for('dept.dept_login') }}">Dept</option>
@@ -189,7 +189,7 @@ window.addEventListener('DOMContentLoaded', function() {
   if (viewportWidth <= 767.98) {
       defaultOption.textContent = ' Here';
   } else {
-      defaultOption.textContent = 'Staff';
+      defaultOption.textContent = 'Login';
   }
 });
 

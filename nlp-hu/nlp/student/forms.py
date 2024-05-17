@@ -43,7 +43,7 @@ class LoginForm(FlaskForm):
 ''' submit project idea forms'''
 class SubmitProject(FlaskForm):
     title = StringField('Project Idea Title', validators=[DataRequired(), Length(min=2, max=100)])
-    description = TextAreaField('Fill your project idea description/abstract', validators=[DataRequired()])
+    description = TextAreaField('Write Down your project idea description/abstract', validators=[DataRequired()])
     dept = StringField('Your Department', validators=[DataRequired()]) 
     year = IntegerField('Graduate Year', validators=[DataRequired()]) 
     submission_date = DateField('Submission Date', format='%Y-%m-%d', validators=[DataRequired()])

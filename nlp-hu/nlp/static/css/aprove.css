@@ -124,12 +124,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.dsp{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 25px;
-}
+
 
 ul {
 padding: 0;
@@ -148,17 +143,119 @@ color: white;
 font-size: larger;
 font-weight: 500;
 }
-.group{
+
+.adv-home-background{
+  height: auto;
+  background-color: #f7f7f7;
+}
+.adv-home-project{
+  height: auto;
+  border-radius: 15px;
+  transition: all ease 0.2s;
+  border: 1px solid #333;
+  background-color: #7b83db;
+  font-family: 'Courier New', Courier, monospace;
+}
+.adv-cardmain, p{
+  left: auto;
+  padding: 12px;
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  color: #f0f0f0;
+}
+.adv-group{
   display: flex;
   gap: 30px;
   justify-items: center;
 }
+.adv-group-box{
+  height: 400px;
+  border-radius: 15px;
+  margin-left: 25px;
+  transition: all ease 0.2s;
+  border: 1px solid #333;
+  padding-left:70px;
+  background-color: #7b83db;
+  font-family: 'Courier New', Courier, monospace;
+
+}
+.adv-dsp{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 25px;
+}
+.adv-bacground{
+  color: white;
+  height: 80vh;
+  background: linear-gradient(45deg,  #660377, white);
+}
+.stud-adv{
+  width: 250px;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.studp-adv{
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  color: #f0f0f0;
+  margin: 0;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+.stud-adv h3{
+  width: 300px;
+  padding-top: 30px;
+  padding-right:15px;
+  color: #f0f0f0;
+}
+.adv-read-more{
+  line-height: 1.5;
+  margin-left: 10px;
+  margin-top: 6px;
+  color: white;
+  width: 120px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  padding:6px;
+  background-color:black;
+}
+/* the javaScript action style one the text display */
+.description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.expanded {
+  -webkit-line-clamp: unset;
+}
+
+.show-less-btn {
+  display: none;
+}
 /* advisor style end */
+
+
 
 /* student home style start */
 .home-background{
   height: 80vh;
   background-color: #f7f7f7;
+}
+.group{
+  display: flex;
+  gap: 30px;
+  justify-items: center;
+}
+.dsp{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 25px;
 }
 .group-box{
   height: 400px;
@@ -180,12 +277,12 @@ font-weight: 500;
   box-shadow: 0px 10px 20px 2px #660377;
 }
 
-  .cardmain ,p{
-    left: auto;
-    padding: 12px;
-    font-family: 'Arial', sans-serif;
-    font-size: 18px;
-    color: #f0f0f0;
+.cardmain ,p{
+  left: auto;
+  padding: 12px;
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  color: #f0f0f0;
   }
   .read-more{
   line-height: 1.5;
@@ -275,6 +372,23 @@ font-weight: 500;
   color: #ffffff;
   margin: 0;}
 
+  /* form group style */
+.form-group-bg{
+    height: 80vh;
+    color: #ffffff;
+    background: linear-gradient(to right, #9146d5, #120377)
+  }
+.btngroup{
+    margin-top: 10px;
+    margin-left: 30px;
+    width: 200px;
+    box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.2); /* Box shadow added */
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    background: linear-gradient(to right, #660377, #6146d5);
+    border-radius: 9999px; 
+  }
 /* student home style end */
 
 /* student login style start */
@@ -346,7 +460,6 @@ font-weight: 500;
 .hidden {
   display: none;
 }
-
 /* student login style end */
 
 /* student signup style start */
@@ -366,8 +479,3 @@ font-weight: 500;
 
  }
 /* department login style end */
-
-.adv-bacground{
-  height: 80vh;
-  background: linear-gradient(45deg,  #660377, white);
-}
