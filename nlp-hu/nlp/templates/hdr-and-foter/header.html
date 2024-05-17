@@ -107,10 +107,10 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             {% if current_user.is_authenticated and current_user.is_student %}
-              <a class="nav-link " href="{{ url_for('student.home') }}" style="color: white;">Home</a>
-              <a class="nav-link " href="{{ url_for('student.form_group') }}" style="color: white;">form group</a>
-              <a class="nav-link " href="{{ url_for('student.submit_projectidea') }}" style="color: white;">submit project idea</a>
-              <a class="nav-link " href="{{ url_for('student.logout') }}" style="color: white;">log out</a>
+              <a class="nav-link " href="{{ url_for('student.home') }}" style="color: #660377; padding-left:50px; font-size:20px;">Home</a>
+              <a class="nav-link " href="{{ url_for('student.form_group') }}" style="color: #660377; font-size:20px;">form group</a>
+              <a class="nav-link " href="{{ url_for('student.submit_projectidea') }}" style="color: #660377; font-size:20px;">submit project idea</a>
+              <a class="nav-link " href="{{ url_for('student.logout') }}" style="color: #660377; font-size:20px; padding-left:350px;">log out</a>
               
             {% elif current_user.is_authenticated and current_user.is_adviser %}
             <a class="nav-link " href="{{ url_for('advisors.adv_home') }}" style="color: white;">home</a>
