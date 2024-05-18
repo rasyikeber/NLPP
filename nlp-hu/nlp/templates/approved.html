@@ -1,13 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="container-fluid approve-project-bg">
-      <h2 style="padding-left: 25px;" class="advname"> Welcome: {{ user.name }}</h2>
-      
-      <a class="nav-link " href="{{ url_for('dept.approved_project') }}" style="color: #660377; padding-left:50px; font-size:20px;">Approved</a>
-
-      <h4 style="padding-left: 25px;">Welcome to the Department Dashboard page</h4>
       {% if grouped_data %}
-        <h2 style="padding-left: 25px;">List of Projects:</h2>
+        <h2 style="padding-left: 25px;">List of approved project Projects:</h2>
         {% for group_data in grouped_data %}
         
           <div class="row justify-content-center">
@@ -23,7 +18,7 @@
               </div>
             </div>
            </div>
-            <div class="col-12 push-to">
+            <div class="col-12">
                 <!-- for approved project -->
               <div class="project-container-for-app d-flex flex-wrap">
                 {% for project in group_data.projects %}
@@ -34,26 +29,7 @@
                       <p>{{ project.description }} <span class="read-more">read more</span></p>
                       {% if project.is_approved %}
                         <h5 class="approved mt-4"><span class="correct">&#10004;</span> Approved</h5>
-                      {% else %}
-                      <h5 class="approveButton buttonapp mt-4" id="" data-projectid="{{ project.id }}">Approve</h5>
-                      <h6 class="rejectButton buttonrej mt-4" id="" data-group-id="{{ group_data.group_id }}">Reject this Idea</h6>
                        {%endif%}
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              </div>
-              
-              <!-- for project that does not approved -->
-              <div class="project-container d-flex flex-wrap">
-                {% for project in group_data.projects %}
-                  {% if not project.is_approved %}
-                    <div class="project-card flex-grow-1">
-                      <h3>Title: {{ project.title }}</h3>
-                      <strong>Description:</strong>
-                      <p>{{ project.description }} <br> <span class="read-more">read more</span></p>
-                      
-                      <h5 class="approveButton buttonapp mt-4" id="" data-projectid="{{ project.id }}">Approve</h5>
-                      <h6 class="rejectButton buttonrej mt-4" id="" data-group-id="{{ group_data.group_id }}">Reject this Idea</h6>
                     </div>
                   {% endif %}
                 {% endfor %}

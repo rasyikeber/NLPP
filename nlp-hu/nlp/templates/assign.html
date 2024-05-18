@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div>
-      <h4 style="padding-left: 200px;">Welcome to the Assign Advisor to Project Idea</h4>
-      <h2 style="padding-left: 300px;" class="advname"> Welcome: {{ user.name }}</h2> <!-- Corrected syntax to access user's name -->
-    </div>
+ 
      
-    <div class="">
+    <div class="assign-prject-bg">
+        <div class="assign-hero-txt">
+            <h2 style=" margin-top:50px;" class="text-bg-white"> Welcome: {{ user.name }}</h2>
+            <h4 class="asn-adv">Assign Advisor to Project Idea</h4>
+            <!-- <div class="altbtn">start now</div> -->
+        </div>
         <div class="col-md-10 offset-md-1 ">
             <table class="table">
                 <thead style="background-color: rgb(7, 162, 194); color: aliceblue;">
@@ -64,7 +66,6 @@
             </table>
         </div>
     </div>
-     <div style="margin-top: 200px;"></div>
      <script>
       function submitForm(index) {
           // Find the form by its ID
@@ -87,3 +88,10 @@
                 <a href="/{{student.id}}/delete"> <i class="fas fa-trash-alt"></i></a></span></td>
          
      -->
+     <!-- primary #059DFF
+     pink #6549D5;
+     high-pink #E33FA1
+     red #FB5343
+
+     background: linear-gradient(95deg, var(--color-primary) 15%, var(--color-tertiary) 45%, var(--color-pink) 75%, var(--color-secondary) 100%) 95% / 200% 100%;
+    -->

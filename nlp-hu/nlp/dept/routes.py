@@ -77,25 +77,30 @@ def dashboard_project():
     if current_user.is_dpthead:
       #print(current_user.is_dpthead)
       dept = current_user.dpt
-      projects = Newproject.query.filter_by(pdpt=dept).all()
+      projects = Newproject.query.filter_by(pdpt=dept).filter_by(is_approved=None).all()
+      print(len(projects))
+
       students = Student.query.filter_by(dpt=dept).all()
       # print(students, projects)
       if not projects and not students:
-        print("No projects found for department:", dept)
-        # Grouping students by group_id
+         print("No projects found for department:", dept)
+        #  Grouping students by group_id
       else:
-        students_by_group = defaultdict(list)
-        for student in students:
-            students_by_group[student.group_id].append(student)
+         students_by_group = defaultdict(list)
+         for student in students:
+             students_by_group[student.group_id].append(student)
             
             
         # Grouping projects by group_id
-        projects_by_group = defaultdict(list)
-        for project in projects:
-            projects_by_group[project.group_id].append(project)
+
+         projects_by_group = defaultdict(list)
+         for project in projects:
+             projects_by_group[project.group_id].append(project)
             
         # Combining projects and students for each group_id
-        for group_id, group_projects in projects_by_group.items():
+
+
+         for group_id, group_projects in projects_by_group.items():
             group_students = students_by_group[group_id]
             grouped_data.append({
                 'group_id': group_id,
@@ -105,6 +110,53 @@ def dashboard_project():
           
 
     return render_template('dashboard.html', title='all Project Idea', user =current_user, grouped_data=grouped_data)
+
+
+@dept.route('/approved-projectidea', methods=['GET', 'POST'])
+@login_required
+@department_head_required
+def approved_project():
+    grouped_data = []
+    if current_user.is_dpthead:
+      #print(current_user.is_dpthead)
+      dept = current_user.dpt
+      projects = Newproject.query.filter_by(pdpt=dept).filter_by(is_approved=True).all()
+      print(len(projects))
+
+      students = Student.query.filter_by(dpt=dept).all()
+      # print(students, projects)
+      if not projects and not students:
+         print("No projects found for department:", dept)
+        #  Grouping students by group_id
+      else:
+         students_by_group = defaultdict(list)
+         for student in students:
+             students_by_group[student.group_id].append(student)
+            
+            
+        # Grouping projects by group_id
+
+         projects_by_group = defaultdict(list)
+         for project in projects:
+             projects_by_group[project.group_id].append(project)
+            
+        # Combining projects and students for each group_id
+
+
+         for group_id, group_projects in projects_by_group.items():
+            group_students = students_by_group[group_id]
+            grouped_data.append({
+                'group_id': group_id,
+                'projects': group_projects,
+                'students': group_students
+            })
+          
+
+    return render_template('approved.html', title='all Project Idea', user =current_user, grouped_data=grouped_data)
+
+
+
+
 
 
 @dept.route('/add-projectidea', methods=['GET', 'POST'])
