@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container-fluid home-background">
-    <h2 class="advname"> Welcome: {{ currentUser.name }}</h2>
+    <h2 class="text-home-bg-white" style="padding-top:50px; padding-left: 80px; margin-bottom:70px;"> Welcome: {{ currentUser.name }}</h2>
     <div class="row justify-content-center dsp">
         <div class="col-md-4">
             <div class="group-box box1">
@@ -29,7 +29,7 @@
            {% if userProject %}
              {% if userProject|length == 1 %}
               <div class="congra">
-                <img src="../static/images/email.png" width="30" alt=""><span>Congratulation!</span><h5>Your approved project idea </h5>
+                <span class="correct">&#10004;</span><span>Congratulation!</span><h5>Your approved project idea </h5>
 
               </div>
                 <div class="">
@@ -37,30 +37,59 @@
                         <div class="">
                             <div class="cardmain {% if userProject|length == 1 %}{% endif %}">
                                 <h5 class="card-title">Project {{ loop.index }}: {{ project.title }}</h5>
-                                <p class="">{{ project.description }} <span class="read-more">read more</span></p>
+                                <p class="description">{{ project.description }}</p>
+                                <button class="adv-read-more read-more-btn">Read more</button>
+                                <button class="show-less-btn" style="display: none;">Show less</button>
+                                
                             </div>
                         </div>
                     {% endfor %}
                 </div>
             {% else %}
-                <div class="card-deck">
+                <div class="">
                     {% for project in userProject %}
-                        <div class="card">
-                            <div class="card-body">
+                        <div class="">
+                            <div class="cardmain">
                                 <h5 class="card-title">Project {{ loop.index }}: {{ project.title }}</h5>
-                                <p class="card-text">{{ project.description }}</p>
+                                <p class="description">{{ project.description }}</p>
+                                <button class="adv-read-more read-more-btn">Read more</button>
+                                <button class="show-less-btn" style="display: none;">Show less</button>
+                                
                             </div>
                         </div>
                     {% endfor %}
                 </div>
             {% endif %}
             {% else %}
-            <p>No projects available.</p>
+            <div class="center-screen">
+                <p class="error-message">No projects found for your department.</p>
+              </div>
             {% endif %}
 
         </div>
     </div>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.cardmain').forEach(function(card) {
+          const readMoreBtn = card.querySelector('.read-more-btn');
+          const showLessBtn = card.querySelector('.show-less-btn');
+          const description = card.querySelector('.description');
+      
+          readMoreBtn.addEventListener('click', function() {
+            description.classList.add('expanded');
+            readMoreBtn.style.display = 'none';
+            showLessBtn.style.display = 'inline';
+          });
+      
+          showLessBtn.addEventListener('click', function() {
+            description.classList.remove('expanded');
+            readMoreBtn.style.display = 'inline';
+            showLessBtn.style.display = 'none';
+          });
+        });
+      });
+  </script>
 {% endblock %}
 
 

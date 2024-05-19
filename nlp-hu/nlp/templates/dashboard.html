@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="container-fluid approve-project-bg">
-      <h2 style="padding-left: 25px;" class="advname"> Welcome: {{ user.name }}</h2>
-      
-      <a class="nav-link " href="{{ url_for('dept.approved_project') }}" style="color: #660377; padding-left:50px; font-size:20px;">Approved</a>
-
-      <h4 style="padding-left: 25px;">Welcome to the Department Dashboard page</h4>
-      {% if grouped_data %}
-        <h2 style="padding-left: 25px;">List of Projects:</h2>
+      <h2 style="padding-left: 30px;" class="dept-wellcome"> Mr: {{ user.name }} Welcome to the Department Dashboard page</h2>
+      <div class="nav-container-tab">
+        <a class="nav-link-tab" href="{{ url_for('dept.approved_project') }}">Approved Project Idea</a>
+        <a class="nav-link-tab" href="{{ url_for('dept.dashboard_project') }}">Approve Project Idea</a>
+      </div>
+      {% if grouped_data%}
+        <div class="pos">
+          <h2 class="list-of-prj">List of Projects:</h2>
+        </div>
         {% for group_data in grouped_data %}
-        
           <div class="row justify-content-center">
             <div class="col-12">
              <div class="group-boxdp boxdp">
@@ -23,47 +24,70 @@
               </div>
             </div>
            </div>
-            <div class="col-12 push-to">
-                <!-- for approved project -->
-              <div class="project-container-for-app d-flex flex-wrap">
-                {% for project in group_data.projects %}
-                  {% if project.is_approved %}
-                    <div class="project-card-for-app boxfor-app flex-grow-1 {% if project.is_approved %}if_approved{% endif %}">
-                      <h3>Title: {{ project.title }}</h3>
-                      <strong>Description:</strong>
-                      <p>{{ project.description }} <span class="read-more">read more</span></p>
-                      {% if project.is_approved %}
-                        <h5 class="approved mt-4"><span class="correct">&#10004;</span> Approved</h5>
-                      {% else %}
-                      <h5 class="approveButton buttonapp mt-4" id="" data-projectid="{{ project.id }}">Approve</h5>
-                      <h6 class="rejectButton buttonrej mt-4" id="" data-group-id="{{ group_data.group_id }}">Reject this Idea</h6>
-                       {%endif%}
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              </div>
-              
-              <!-- for project that does not approved -->
+            <div class="col-12">
               <div class="project-container d-flex flex-wrap">
                 {% for project in group_data.projects %}
                   {% if not project.is_approved %}
-                    <div class="project-card flex-grow-1">
+                    <div class="project-card box2 flex-grow-1">
                       <h3>Title: {{ project.title }}</h3>
-                      <strong>Description:</strong>
-                      <p>{{ project.description }} <br> <span class="read-more">read more</span></p>
-                      
-                      <h5 class="approveButton buttonapp mt-4" id="" data-projectid="{{ project.id }}">Approve</h5>
-                      <h6 class="rejectButton buttonrej mt-4" id="" data-group-id="{{ group_data.group_id }}">Reject this Idea</h6>
+                      <h5>Description:</h5>
+                      <p class="description">{{ project.description }}</p>
+                      <button class="adv-read-more read-more-btn">Read more</button>
+                      <button class="show-less-btn" style="display: none;">Show less</button>
+                      <br>
+                      <button class="approveButton approvebtn read-more-btn mt-4" id="" data-projectid="{{ project.id }}">Approve</button>
+                      <button class="rejectButton rejectbtn mt-4" id="" data-group-id="{{ group_data.group_id }}">Reject this Idea</button>
                     </div>
                   {% endif %}
+                  
                 {% endfor %}
               </div>
             </div>
           </div>
         {% endfor %}
       {% else %}
-        <p>No projects found for your department.</p>
+      <div class="center-screen">
+        <p class="error-message">No projects found for your department.</p>
+
+      </div>
       {% endif %}
+
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.project-card').forEach(function(card) {
+        const readMoreBtn = card.querySelector('.read-more-btn');
+        const showLessBtn = card.querySelector('.show-less-btn');
+        const description = card.querySelector('.description');
+    
+        readMoreBtn.addEventListener('click', function() {
+          description.classList.add('expanded');
+          readMoreBtn.style.display = 'none';
+          showLessBtn.style.display = 'inline';
+        });
+    
+        showLessBtn.addEventListener('click', function() {
+          description.classList.remove('expanded');
+          readMoreBtn.style.display = 'inline';
+          showLessBtn.style.display = 'none';
+        });
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+      const navLinks = document.querySelectorAll('.nav-link-tab');
+      const currentUrl = window.location.href;
+
+      navLinks.forEach(link => {
+          if (link.href === currentUrl) {
+              link.classList.add('active');
+          }
+
+          link.addEventListener('click', function() {
+              navLinks.forEach(link => link.classList.remove('active'));
+              this.classList.add('active');
+          });
+      });
+  });
+</script>
   <script src="{{ url_for('static', filename='js/myscript.js') }}"></script>
 {% endblock %}

@@ -50,7 +50,6 @@ def dept_login():
         #  return redirect(next_page) if next_page else redirect(url_for('dept.dept_home'))
       else:
         flash('Login Unsuccessful. Please check student ID and password.', 'danger')
-
   return render_template('dept-login.html', title='dept Login', form=form)
 
 
@@ -78,14 +77,15 @@ def dashboard_project():
       #print(current_user.is_dpthead)
       dept = current_user.dpt
       projects = Newproject.query.filter_by(pdpt=dept).filter_by(is_approved=None).all()
-      print(len(projects))
-
-      students = Student.query.filter_by(dpt=dept).all()
-      # print(students, projects)
-      if not projects and not students:
-         print("No projects found for department:", dept)
-        #  Grouping students by group_id
-      else:
+      print("wtf", len(projects))
+      if projects:
+         
+        students = Student.query.filter_by(dpt=dept).all()
+        # print(students, projects)
+        if not projects and not students:
+          print("No projects found for department:", dept)
+          #  Grouping students by group_id
+        else:
          students_by_group = defaultdict(list)
          for student in students:
              students_by_group[student.group_id].append(student)
@@ -107,7 +107,11 @@ def dashboard_project():
                 'projects': group_projects,
                 'students': group_students
             })
-          
+      else:
+         print("no project unapproved is here")
+         if not len(grouped_data) >0:
+          print("empty list 0",grouped_data)
+            
 
     return render_template('dashboard.html', title='all Project Idea', user =current_user, grouped_data=grouped_data)
 

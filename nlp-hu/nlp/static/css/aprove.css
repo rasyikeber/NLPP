@@ -8,6 +8,7 @@
   --color-tertiary: #6549D5;
   --color-tertiary-alt: #6549D5;
   --color-pink: #E33FA1;
+  --color-green:green;
 }
 
 .altbtn{
@@ -19,7 +20,11 @@
   border-color: transparent;
   border-radius: 8px;
   background-color: transparent;
-  background: linear-gradient(95deg, var(--color-primary) 15%, var(--color-tertiary) 45%, var(--color-pink) 75%, var(--color-secondary) 100%) 95% / 200% 100%;
+  background: linear-gradient(95deg,
+  var(--color-primary) 15%, 
+  var(--color-tertiary) 45%,
+  var(--color-pink) 75%,
+  var(--color-secondary) 100%) 95% / 200% 100%;
   transition-duration: 300ms;
   color: var(--color-white);
   
@@ -37,7 +42,41 @@
 
 /* department project approve style start  */
 .approve-project-bg{
+  height: auto;
   background-color: #f7f7f7;
+}
+.pos {
+  position: relative; /* Ensure the container is the reference point */
+}
+
+.list-of-prj {
+  position: absolute; /* Positioning the element absolutely within the container */
+  top: 150px; /* Adjust the top position */
+  left: 30px; /* Adjust the left position */
+  margin: 0; /* Remove any default margins */
+  
+  font-size: 36px;
+  background: linear-gradient(95deg, 
+    var(--color-primary) 15%, 
+    var(--color-tertiary) 45%, 
+    var(--color-pink) 75%, 
+    var(--color-secondary) 100%) 95% / 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+.list-of-app-prj {
+  font-size: 36px;
+  background: linear-gradient(95deg, 
+    var(--color-primary) 15%, 
+    var(--color-tertiary) 45%, 
+    var(--color-pink) 75%, 
+    var(--color-secondary) 100%) 95% / 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 .stud-name-dept{
@@ -53,7 +92,7 @@
   /* height: 400px; */
   border-radius: 15px;
   margin-top: 30px;
-  margin-left: 98px;
+  margin-left: 450px;
   transition: all ease 0.2s;
   border: 1px solid #333;
   width: 400px;
@@ -73,156 +112,231 @@
 .group-members {
   width: 250px;
   padding: 15px;
-  /* padding-left: 45px; */
   border-radius: 5px;
   margin-bottom: 20px;
 }
-
-
 
 .project-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px; /* Add space between project cards */
+  margin: 0 10px;
+  margin-bottom: 10px;
 }
-
 .project-card {
   background-color: #7b83db;
   color: #ffffff;
-  padding: 15px;
+  padding: 25px;
+  transition: all ease 0.2s;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   flex: 1 1 calc(50% - 20px); /* Adjust flex properties for responsive behavior */
   margin: 10px 0; /* Add vertical margin for spacing */
-}
-
-/* for approved project */
-.push-to{
-  position: relative;
-}
-.project-container-for-app {
-  left: 45%;
-  top: -35%;
-  bottom: 0;
-  width: 600px;
-  padding: 0;
-  margin: 0;
-  
-}
-
-.project-card-for-app {
-  background-color: #7b83db;
-  color: #ffffff;
-  border-radius: 15px;
-  border: 1px solid #333;
-  transition: all ease 0.2s;
   font-family: 'Courier New', Courier, monospace;
 }
- /* box 2 */
+.box2 {
+ box-shadow: 0px 5px 10px 0px #660377;            
+}
+.box2:hover{
+ transform: translateY(-5px);
+ box-shadow: 0px 10px 20px 2px #660377;
+}
+.dept-wellcome{
+  margin-bottom: 50px;
+  padding-top: 50px;
+  font-size: 30px;
+  width: auto;
+  font-weight: 600;
+  background: linear-gradient(to right, #2586f6  , #b50968);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* for the tabs */
+.nav-container-tab {
+  display: flex;
+  justify-content: start;
+  margin: 20px 0;
+  padding-left: 200px;
+  
+}
+.nav-link-tab {
+  width: 400px;
+  text-decoration: none;
+  padding: 10px 20px;
+  padding-left:60px;
+  font-size: 20px;
+  margin-right: 10px;
+  background-color: #f0f0f0;
+  border: 4px solid #ccc;
+  border-radius: 5px 5px 0 0;
+  font-size: 25px;
+  background: linear-gradient(95deg, 
+    var(--color-primary) 15%, 
+    var(--color-tertiary) 45%, 
+    var(--color-pink) 75%, 
+    var(--color-secondary) 100%) 95% / 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.nav-link-tab:hover {
+  background-color: #ddd;
+  border-color: #660377;
+}
+.nav-link-tab.active {
+  background-color: #660377;
+  color: white;
+  border-color: #660377;
+}
+.approvebtn{
+  color: #ffffff;
+  font-size: 25px;
+  padding: 0 28px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent;
+  border-radius: 8px;
+  background-color: transparent;
+  background: linear-gradient(95deg,
+  var(--color-primary) 15%,
+  var(--color-tertiary) 45%,
+  var(--color-pink) 75%,
+  var(--color-green) 100%) 95% / 200% 100%;
+  transition-duration: 300ms;
+  color: var(--color-white);
+  cursor: pointer;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: var(--shadow-light);
+  display: inline-block;
+  height: 50px;
+  line-height: 47px;
+  letter-spacing: 0.5px;
+  width: auto;
+  transition: 0.4s;
+}
 
-.boxfor-app {
+.rejectbtn{
+  color: #ffffff;
+  font-size: 25px;
+  padding: 0 28px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent;
+  border-radius: 8px;
+  background-color: transparent;
+  background: linear-gradient(95deg,
+  var(--color-primary) 15%,
+  var(--color-tertiary) 45%,
+  var(--color-pink) 75%,
+  var(--color-secondary) 100%) 95% / 200% 100%;
+  transition-duration: 300ms;
+  color: var(--color-white);
+  cursor: pointer;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: var(--shadow-light);
+  display: inline-block;
+  height: 50px;
+  line-height: 47px;
+  letter-spacing: 0.5px;
+  width: auto;
+  transition: 0.4s;
+}
+/* not approved project end style */
+
+
+
+
+/*  approved project style start here */
+.dsp{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 25px;
+}
+.app-group-box{
+  height: 385px;
+  border-radius: 15px;
+  margin-left: 20px;
+  margin-top: 5px;
+  transition: all ease 0.2s;
+  border: 1px solid #333;
+  /* width: 400px; */
+  padding-left:80px;
+  background-color: #7b83db;
+  font-family: 'Courier New', Courier, monospace;
+
+}
+.app-cardmain ,p{
+  left: auto;
+  padding: 12px;
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  color: #f0f0f0;
+  }
+ 
+ .app-stud {
+    
+  width: 200px;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.app-studp {
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  color: #f0f0f0;
+  margin: 0;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+ .app-home-project{
+  margin-bottom: 30px;
+  height: auto;
+  border-radius: 15px;
+  transition: all ease 0.2s;
+  border: 1px solid #333;
+  background-color: #7b83db;
+  font-family: 'Courier New', Courier, monospace;
+ }
+
+.app-box2 {
   box-shadow: 0px 5px 10px 0px #660377;            
 }
-.boxfor-app:hover{
+.app-box2:hover{
   transform: translateY(-5px);
   box-shadow: 0px 10px 20px 2px #660377;
 }
-
-
-/* .name{
-  display: flex;
-  background:linear-gradient(35deg,rgb(36, 22, 66), rgb(53, 4, 3));
-  justify-content: center;
-  justify-items: center;
-
-} */
-  /* .nameitem p{
-    margin: 0;
-    font-weight: 700;
-    color: #ffffff;  
-  } */
-
-  /* .project{
-    display: flex;
-    justify-content: space-between;
-    justify-items: center;
-    gap: 30px;
-    padding: 30px;
-    color: #000;
-  } */
-
-  /* .approv-project{
-    height: auto;
-    border-radius: 15px;
-    transition: all ease 0.2s;
-    border: 1px solid #333;
-
-    background-color: #7b83db;
-    font-family: 'Courier New', Courier, monospace;
-  } */
-
-  /* .cardmain-approv ,p{
-    left: auto;
-    padding: 12px;
-    font-family: 'Arial', sans-serif;
-    font-size: 18px;
-    color: #f0f0f0;
-    } */
-
-  /* .projecitems{
-    color: rgb(252, 239, 239);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size:16px ;
-    font-weight: 900;
-    position: relative;
-  } */
-
-
-
-  /* Style for the anchor tag */
-  .buttonrej {
-  display: inline-block;
-  padding: 5px 10px;
-  background-color: rgb(243, 12, 20);
-  color: white;
-  text-decoration: none;
-  font-size: xx-large;
-  border-radius: 5px;
-  cursor: pointer;
+/* water mark */
+.app-cardmain {
   position: relative;
-  left: 12%;
-  transform: translateX(-50%);
-  }
-  .buttonrej:hover {
-    color: white;
-  }
-  .buttonapp:hover {
-    color: white;
-  }
-  .buttonapp{
-    display: inline-block;
-    padding: 5px 10px;
-    background-color: rgb(6, 133, 44);
-    color: white;
-    text-decoration: none;
-    font-size: xx-large;
-    border-radius: 5px;
-    
-    cursor: pointer; 
-  }
+  /* padding: 20px;
+  margin-bottom: 20px; */
+  overflow: hidden;
+}
 
-.assigned{
-  display: inline-block;
-  padding: 5px 10px;
-  background-color: rgb(70, 214, 246);
-  color: green;
-  text-decoration: none;
-  font-size: xx-large;
-  border-radius: 5px;
-  cursor: pointer;
+.watermark {
+  position: absolute;
+  top: 95px;
+  left: 80%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  font-size: 3em;
+  color: rgba(0, 0, 0, 0.1); /* Light grey for watermark effect */
+  pointer-events: none; /* Ensures watermark does not interfere with other elements */
+  z-index: 5;
+  text-align: center;
+}
+
+.app-cardmain > * {
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+  z-index: 2;
 }
 .approved {
   display: inline-block;
@@ -237,15 +351,23 @@
   color: green; /* Green color for the checkmark */
   margin-right: 8px; /* Space between the checkmark and text */
 }
+/*  approved project style end  */
 
-.advproject_list{
- background:linear-gradient();
+
+
+.assigned{
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: rgb(70, 214, 246);
+  color: green;
+  text-decoration: none;
+  font-size: xx-large;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
-/* department approve style end */
-
-
-
-
 
 
 /* advisor style start */
@@ -259,26 +381,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-/* 
-ul {
-padding: 0;
-margin: 10px;
-max-width: 300px;
-position: relative;
-}
-
-li {
-padding: 0.5rem 1.5rem 0.5rem;
-border-radius: 1.5rem;
-background: #4000ff;
-list-style: none;
-margin: 5px;
-color: white;
-font-size: larger;
-font-weight: 500;
-} */
-
 .adv-home-background{
   height: auto;
   background-color: #f7f7f7;
@@ -378,8 +480,22 @@ font-weight: 500;
 
 /* student home style start */
 .home-background{
-  height: 80vh;
+  height: auto;
+  margin-bottom: 30px;
   background-color: #f7f7f7;
+}
+.text-home-bg-white {
+  font-size: 36px;
+  background: linear-gradient(95deg, 
+    var(--color-primary) 15%, 
+    var(--color-tertiary) 45%, 
+    var(--color-pink) 75%, 
+    var(--color-secondary) 100%) 95% / 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  z-index: 1; /* Ensure text appears above the image */
 }
 .group{
   display: flex;
@@ -411,7 +527,6 @@ font-weight: 500;
   transform: translateY(-5px);
   box-shadow: 0px 10px 20px 2px #660377;
 }
-
 .cardmain ,p{
   left: auto;
   padding: 12px;
@@ -443,7 +558,6 @@ font-weight: 500;
   padding: 20px;
   margin-bottom: 20px;
 }
-
 .studp {
   font-family: 'Arial', sans-serif;
   font-size: 18px;
@@ -451,9 +565,7 @@ font-weight: 500;
   margin: 0;
   padding: 5px;
   border-bottom: 1px solid #ccc;
-}
-
-   
+} 
  .advemail{
   margin-top: 0;
   font-weight: 600;
@@ -469,8 +581,6 @@ font-weight: 500;
   background-color: #7b83db;
   font-family: 'Courier New', Courier, monospace;
  }
- /* box 2 */
-
 .box2 {
   box-shadow: 0px 5px 10px 0px #660377;            
 }
@@ -489,17 +599,14 @@ font-weight: 500;
   display: flex;
   align-items: center;
 }
-
 .congra img {
   margin-right: 10px;
 }
-
 .congra span {
   font-size: 24px;
   font-weight: bold;
   color: #ffffff;
 }
-
 .congra h5 {
   font-size: 18px;
   color: #ffffff;
@@ -585,7 +692,6 @@ font-weight: 500;
   color: transparent;
   z-index: 1; /* Ensure text appears above the image */
 }
-
 /*FAQ CSS Styles */
 .faq-question {
   font-weight: bold;
@@ -615,6 +721,7 @@ font-weight: 500;
 }
 /* student login style end */
 
+
 /* student signup style start */
 .body-background{
   height: 100vh;
@@ -631,10 +738,12 @@ font-weight: 500;
   background: linear-gradient(45deg,  #660377, white);
 
  }
+
  /* assign advisor to project */
  .assign-prject-bg{
-  height: 80vh;
+  height: auto;
   background-color: #f7f7f7;
+  margin-bottom: 30px;
  }
  .assign-hero-txt{
   padding-top: 60px;
@@ -646,5 +755,54 @@ font-weight: 500;
   color: #666;
   font-weight: 800;
  }
+
+
 /* department login style end */
 
+
+/* execptional navigation */
+.nav-container {
+  display: flex;
+  justify-content: start;
+  margin: 20px 0;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #660377;
+  padding: 10px 20px;
+  font-size: 20px;
+  margin-right: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px 5px 0 0;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.nav-link:hover {
+  background-color: #ddd;
+  border-color: #660377;
+}
+
+.nav-link.active {
+  background-color: #660377;
+  color: white;
+  border-color: #660377;
+}
+
+/* error message */
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 20px;
+  text-align: center;
+  margin: 20px;
+  border-radius: 5px;
+}
+.center-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+}

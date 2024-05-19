@@ -1,45 +1,99 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="container-fluid approve-project-bg">
+    <h2 style="padding-left: 90px;" class="dept-wellcome"> Mr: {{ user.name }} Welcome to the Department Dashboard page</h2>
+      <div class="nav-container-tab">
+        <a class="nav-link-tab" id="approve-project" href="{{ url_for('dept.approved_project') }}">Approved Project Idea</a>
+        <a class="nav-link-tab" id="approve-project" href="{{ url_for('dept.dashboard_project') }}">Approve Project Idea</a>
+      </div>
       {% if grouped_data %}
-        <h2 style="padding-left: 25px;">List of approved project Projects:</h2>
+        <h2 style="padding-bottom:40px; padding-top: 30px; padding-left: 90px;" class="list-of-app-prj">List of approved project Projects:</h2>
         {% for group_data in grouped_data %}
-        
-          <div class="row justify-content-center">
-            <div class="col-12">
-             <div class="group-boxdp boxdp">
-              <div class="group-members">
-                <strong>Group members:</strong>
+        <div class="row justify-content-center dsp">
+          <div class="col-md-4">
+            <div class="app-group-box box1">
+              <img src="../static/images/group2.png" width="100" height="60" style="margin-top:10px; padding-left: 55px; " alt="">
+              <div class="app-stud">
                 {% for student in group_data.students %}
-                  {% if student.group_id == group_data.group_id %}
-                    <p class="stud-name-dept">{{ loop.index }}: {{ student.name }}</p>
-                  {% endif %}
-                {% endfor %}
+                {% if student.group_id == group_data.group_id %}
+                  <p class="app-studp">{{ loop.index }}: {{ student.name }}</p>
+                {% endif %}
+              {% endfor %}
               </div>
-            </div>
-           </div>
-            <div class="col-12">
-                <!-- for approved project -->
-              <div class="project-container-for-app d-flex flex-wrap">
-                {% for project in group_data.projects %}
-                  {% if project.is_approved %}
-                    <div class="project-card-for-app boxfor-app flex-grow-1 {% if project.is_approved %}if_approved{% endif %}">
-                      <h3>Title: {{ project.title }}</h3>
-                      <strong>Description:</strong>
-                      <p>{{ project.description }} <span class="read-more">read more</span></p>
-                      {% if project.is_approved %}
-                        <h5 class="approved mt-4"><span class="correct">&#10004;</span> Approved</h5>
-                       {%endif%}
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              </div>
+             
             </div>
           </div>
+          <div class="col-md-6 app-home-project app-box2">
+            <div class="">
+                {% for project in group_data.projects %}
+                    {% if project.is_approved %}
+                        <div class="app-cardmain">
+                            <div class="watermark">
+                                <h5 class="approved"><span class="correct">&#10004;</span> Approved</h5>
+                            </div>
+                            <h3>Title: {{ project.title }}</h3>
+                            <strong>Description:</strong>
+                            <p class="description">{{ project.description }} </p>
+                            <button class="adv-read-more read-more-btn">read more</button>
+                            <button class="show-less-btn" style="display: none;">Show less</button>
+
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        
+        </div>
+        
         {% endfor %}
       {% else %}
         <p>No projects found for your department.</p>
       {% endif %}
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const navLinks = document.querySelectorAll('.nav-link-tab');
+      const currentUrl = window.location.href;
+
+      navLinks.forEach(link => {
+          if (link.href === currentUrl) {
+              link.classList.add('active');
+          }
+
+          link.addEventListener('click', function() {
+              navLinks.forEach(link => link.classList.remove('active'));
+              this.classList.add('active');
+          });
+      });
+  });
+
+
+   // for read more
+        document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.app-cardmain').forEach(function(card) {
+          const readMoreBtn = card.querySelector('.read-more-btn');
+          const showLessBtn = card.querySelector('.show-less-btn');
+          const description = card.querySelector('.description');
+      
+          readMoreBtn.addEventListener('click', function() {
+            description.classList.add('expanded');
+            readMoreBtn.style.display = 'none';
+            showLessBtn.style.display = 'inline';
+          });
+      
+          showLessBtn.addEventListener('click', function() {
+            description.classList.remove('expanded');
+            readMoreBtn.style.display = 'inline';
+            showLessBtn.style.display = 'none';
+          });
+        });
+      });
+      
+
+</script>
   <script src="{{ url_for('static', filename='js/myscript.js') }}"></script>
 {% endblock %}
+
+
+
+
