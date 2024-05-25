@@ -22,6 +22,53 @@
                         {% for error in form.description.errors %}
                           <span style="color: red;">{{ error }}</span>
                       {% endfor %}
+                    </div>      
+                  <div class="form-group mr-4" style="width: 150px;">
+                      {{ form.submission_date.label(class="form-control-label",style="padding-top:10px;") }}
+                      {{ form.submission_date(class="form-control form-control-sm") }}
+                      {% for error in form.submission_date.errors %}
+                      <span style="color: red;">{{ error }}</span>
+                  {% endfor %}
+                  </div>
+                </fieldset>
+                <div class="form-group text-center mt-4 btngroup">
+                    {{ form.submit(class="btn", style="color: white; font-size:25px") }}
+                </div>
+            </form>
+          </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+<!-- 
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form-group-bg">
+    <div class="col-md-8 offset-md-2">
+        <div class="content-section p-4 ml-10" style="width: 700px;">
+            <form method="POST" action="{{ url_for('student.submit_projectidea') }}" novalidate>
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="mb-4 text-center">Submit Your Project Idea Here!</legend>
+                    <div class="form-group">
+                      {{ form.title.label(class="form-control-label") }}
+                      {{ form.title(class="form-control form-control-sm") }}
+                      {% for error in form.title.errors %}
+                          <span style="color: red;">{{ error }}</span>
+                      {% endfor %}
+                  </div>
+                    <div class="form-group" style="padding-top:10px;">
+                        {{ form.description.label(class="form-control-label") }}
+                        {{ form.description(class="form-control form-control-lg") }}
+                        {% for error in form.description.errors %}
+                          <span style="color: red;">{{ error }}</span>
+                      {% endfor %}
                     </div>
                     
                     <!-- <div class="form-group">
@@ -37,22 +84,25 @@
                       {% for error in form.year.errors %}
                           <span style="color: red;">{{ error }}</span>
                       {% endfor %}
-                  </div> style="color:white; font-size:25px; -->
+                  </div> style="color:white; font-size:25px; 
                   <div class="form-group mr-4" style="width: 150px;">
-                      {{ form.submission_date.label(class="form-control-label",style="padding-top:10px;") }}
-                      {{ form.submission_date(class="form-control form-control-sm") }}
-                      {% for error in form.submission_date.errors %}
-                      <span style="color: red;">{{ error }}</span>
-                  {% endfor %}
-                  </div>
-                
-              
-                </fieldset>
-                <div class="form-group text-center mt-4 btngroup">
-                    {{ form.submit(class="btn", style="color: white; font-size:25px") }}
+                    {{ form.submission_date.label(class="form-control-label",style="padding-top:10px;") }}
+                    {{ form.submission_date(class="form-control form-control-sm") }}
+                    {% for error in form.submission_date.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                {% endfor %}
                 </div>
-            </form>
-          </div>
-    </div>
+              
+            
+              </fieldset>
+              <div class="form-group text-center mt-4 btngroup">
+                  {{ form.submit(class="btn", style="color: white; font-size:25px") }}
+              </div>
+          </form>
+        </div>
+  </div>
 </div>
 {% endblock %}
+
+
+ -->
