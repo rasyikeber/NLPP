@@ -5,7 +5,7 @@
 <div class="form-group-bg">
     <div class="col-md-8 offset-md-2">
         <div class="content-section p-4 ml-10" style="width: 700px;">
-            <form method="POST" action="{{ url_for('student.submit_projectidea') }}" novalidate>
+            <form id="projectForm" method="POST" action="{{ url_for('student.submit_projectidea') }}" novalidate>
                 {{ form.hidden_tag() }}
                 <fieldset class="form-group">
                     <legend class="mb-4 text-center">Submit Your Project Idea Here!</legend>
@@ -38,71 +38,104 @@
           </div>
     </div>
 </div>
+
+<!-- Spinner -->
+<div id="spinner" style="display: none;" class="lds-ripple"><div></div><div></div></div>
+
+<style>
+    .lds-ripple,
+    .lds-ripple div {
+      box-sizing: border-box;
+    }
+    .lds-ripple {
+      display: inline-block;
+      position: fixed; /* changed to fixed to center the spinner on the screen */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      z-index: 1000; /* added to ensure spinner is above other content */
+    }
+    .lds-ripple div {
+      position: absolute;
+      border: 4px solid currentColor;
+      opacity: 1;
+      border-radius: 50%;
+      animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+    .lds-ripple div:nth-child(2) {
+      animation-delay: -0.5s;
+    }
+    @keyframes lds-ripple {
+      0% {
+        top: 36px;
+        left: 36px;
+        width: 8px;
+        height: 8px;
+        opacity: 0;
+      }
+      4.9% {
+        top: 36px;
+        left: 36px;
+        width: 8px;
+        height: 8px;
+        opacity: 0;
+      }
+      5% {
+        top: 36px;
+        left: 36px;
+        width: 8px;
+        height: 8px;
+        opacity: 1;
+      }
+      100% {
+        top: 0;
+        left: 0;
+        width: 80px;
+        height: 80px;
+        opacity: 0;
+      }
+    }
+</style>
+
+<script>
+    document.getElementById('projectForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        document.getElementById('spinner').style.display = 'block';
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        }).then(response => {
+            document.getElementById('spinner').style.display = 'none';
+
+            if (response.ok) {
+                return response.json();
+            } else {
+                return response.text().then(text => { throw new Error(text); });
+            }
+        }).then(data => {
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            } else {
+                // Handle success response (e.g., display success message)
+                console.log('Success:', data);
+            }
+        }).catch(error => {
+            // Handle error response (e.g., display error message)
+            console.error('Error:', error);
+        });
+    });
+</script>
+
 {% endblock %}
 
 
 
-
-
-<!-- 
-{% extends "base.html" %}
-
-{% block content %}
-
-<div class="form-group-bg">
-    <div class="col-md-8 offset-md-2">
-        <div class="content-section p-4 ml-10" style="width: 700px;">
-            <form method="POST" action="{{ url_for('student.submit_projectidea') }}" novalidate>
-                {{ form.hidden_tag() }}
-                <fieldset class="form-group">
-                    <legend class="mb-4 text-center">Submit Your Project Idea Here!</legend>
-                    <div class="form-group">
-                      {{ form.title.label(class="form-control-label") }}
-                      {{ form.title(class="form-control form-control-sm") }}
-                      {% for error in form.title.errors %}
-                          <span style="color: red;">{{ error }}</span>
-                      {% endfor %}
-                  </div>
-                    <div class="form-group" style="padding-top:10px;">
-                        {{ form.description.label(class="form-control-label") }}
-                        {{ form.description(class="form-control form-control-lg") }}
-                        {% for error in form.description.errors %}
-                          <span style="color: red;">{{ error }}</span>
-                      {% endfor %}
-                    </div>
-                    
-                    <!-- <div class="form-group">
-                      {{ form.dept.label(class="form-control-label") }}
-                      {{ form.dept(class="form-control form-control-sm") }}
-                      {% for error in form.dept.errors %}
-                          <span style="color: red;">{{ error }}</span>
-                      {% endfor %}
-                  </div> -->
-                  <!-- <div class="form-group">
-                      {{ form.year.label(class="form-control-label") }}
-                      {{ form.year(class="form-control form-control-sm") }}
-                      {% for error in form.year.errors %}
-                          <span style="color: red;">{{ error }}</span>
-                      {% endfor %}
-                  </div> style="color:white; font-size:25px; 
-                  <div class="form-group mr-4" style="width: 150px;">
-                    {{ form.submission_date.label(class="form-control-label",style="padding-top:10px;") }}
-                    {{ form.submission_date(class="form-control form-control-sm") }}
-                    {% for error in form.submission_date.errors %}
-                    <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-                </div>
-              
-            
-              </fieldset>
-              <div class="form-group text-center mt-4 btngroup">
-                  {{ form.submit(class="btn", style="color: white; font-size:25px") }}
-              </div>
-          </form>
-        </div>
-  </div>
-</div>
-{% endblock %}
-
-
- -->

@@ -4,6 +4,39 @@ from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+from nltk.stem import PorterStemmer
+import re
+import nltk
+from nltk.corpus import stopwords
+
+from sentence_transformers import util
+
+
+# Ensure the stopwords are downloaded
+nltk.download('stopwords')
+stop_words = set(stopwords.words('english'))
+
+
+
+
+# Define custom stopwords to exclude relevant technical terms (adjust based on your needs)
+custom_stopwords = set(stopwords.words('english')).union({'framework', 'etc', 'develop', 
+                           'implement', 'build', 'system', 'solution', 'approach', 
+                           'real-time', 'scalable', 'user-friendly','methodology', 'application',
+                             'app', 'web', 'development', 'project', 'create', 'develop',
+                           'cost-effective', 'robust'})  # Add/remove words as needed
+
+def preprocess_text(text):
+  text = text.lower()
+  # Keep essential punctuation for technical terms (hyphens, colons)
+  text = re.sub(r'[^\w\s\-:]', '', text)
+  text = ' '.join([word for word in text.split() if word not in custom_stopwords])
+
+  # Stemming
+  text = ' '.join([PorterStemmer().stem(word) for word in text.split()])
+
+  return text
+
 
 def calculate_similarity(text1, text2):
     if text1 is None or text2 is None:
@@ -33,11 +66,12 @@ def calculate_similarity(text1, text2):
 
     return similarity
 
-
-
-
-
-
-
+def check_similarity_with_projects(title, description, projects, threshold):
+    for project in projects:
+        title_similarity = calculate_similarity(title, project.title)
+        description_similarity = calculate_similarity(description, project.description)
+        if title_similarity > threshold or description_similarity > threshold:
+            return True
+    return False
 
 

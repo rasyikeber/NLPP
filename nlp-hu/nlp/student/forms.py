@@ -9,8 +9,7 @@ class RegistrationForm(FlaskForm):
     name = StringField('Full Name', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
     studid = IntegerField('Student ID', validators=[
-        DataRequired(),
-        NumberRange(min=1000, max=9999, message="ID must be a 4-digit number")
+        DataRequired()
     ])
    
     
@@ -44,7 +43,7 @@ class RegistrationForm(FlaskForm):
         if user:
             raise ValidationError('This email is already taken')
     def validate_password(self, password):
-        if not (len(password.data) > 8 and re.search("[!@#$%^&*()-_+=]", password.data)):
+        if not (len(password.data) >=8 and re.search("[!@#$%^&*()-_+=]", password.data)):
             raise ValidationError('Password must be at least 8 characters long and contain at least one special character.')
     def validate_confirm_password(self, confirm_password):
         if self.password.data != confirm_password.data:
@@ -53,8 +52,7 @@ class RegistrationForm(FlaskForm):
    
 class LoginForm(FlaskForm):
     studid = IntegerField('Student ID', validators=[
-       DataRequired(),
-       Length(max=8, message="password must be 8 digits")                                              
+       DataRequired()                                             
     ])
     password = PasswordField('Password', validators=[
         DataRequired(),

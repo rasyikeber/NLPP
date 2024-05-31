@@ -1,8 +1,10 @@
 from flask import render_template, flash,Blueprint, redirect, url_for,request,session,jsonify
 from nlp.student.forms import RegistrationForm, LoginForm, SubmitProject
-from nlp.student.utils import calculate_similarity
+from nlp.student.utils import check_similarity_with_projects
 from  nlp.models import Student,Newproject,Oldproject,Adviser
 import random,time
+
+
 
 from flask_login import login_user, current_user, logout_user, login_required
 from nlp import  db, bcrypt
@@ -26,14 +28,7 @@ def generate_group_id(department):
     group_id = department + timestamp + random_number  # Concatenate department, timestamp, and random number
     return group_id
 
-def check_similarity_with_projects(title, description, projects, threshold, project_type):
-    for project in projects:
-        title_similarity = calculate_similarity(title, project.title)
-        desc_similarity = calculate_similarity(description, project.description)
-        if title_similarity > threshold and desc_similarity > threshold:
-            flash(f'Similar project already exists in {project_type} projects', category='error')
-            return True
-    return False
+
 
 @student.route('/registre', methods=['GET','POST'])
 def register():
@@ -140,49 +135,43 @@ def form_group():
 @login_required
 @student_required
 def submit_projectidea():
-  form =SubmitProject()
-  currentUser = Student.query.filter_by(id=current_user.id).first()
-  if currentUser.is_grouped and currentUser.is_student:
-    if form.validate_on_submit():
-      title=form.title.data
-      description=form.description.data
-      # year=form.year.data
-      # dept= form.dept.data
-      date=form.submission_date.data
-      project = Newproject(title=form.title.data, description=form.description.data,group_id=currentUser.group_id,  pdpt=currentUser.dpt, year=currentUser.year, date=date,adviser_name=None,is_approved=False)
-      similarity_threshold = 0.70 
-      project_count = session.get(f'project_count_{current_user.id}', 0)
-        # Check for similarity with new projects
-      similarity_found = check_similarity_with_projects(title, description, Newproject.query.all(), similarity_threshold, 'New')
+    form = SubmitProject()
+    currentUser = Student.query.filter_by(id=current_user.id).first()
+    if currentUser.is_grouped and currentUser.is_student:
+        if form.validate_on_submit():
+            title = form.title.data
+            description = form.description.data
+            date = form.submission_date.data
+            project = Newproject(title=title, description=description, group_id=currentUser.group_id, pdpt=currentUser.dpt, year=currentUser.year, date=date, adviser_name=None, is_approved=False)
+            similarity_threshold = 0.70 
+            project_count = session.get(f'project_count_{current_user.id}', 0)
 
-        # Check for similarity with old projects
-      if not similarity_found:
-        similarity_found = check_similarity_with_projects(title, description, Oldproject.query.all(), similarity_threshold, 'Last year')
-        # Proceed with submission only if no similarity is found
-        if not similarity_found: 
-          try:
-            db.session.add(project)
-            db.session.commit()
-            # Increment the project count
-            project_count += 1
+            similarity_found = check_similarity_with_projects(title, description, [Newproject.query.first()], similarity_threshold, 'New')
+            if not similarity_found:
+                similarity_found = check_similarity_with_projects(title, description, [Oldproject.query.first()], similarity_threshold, 'Last year')
+                if not similarity_found: 
+                    try:
+                        db.session.add(project)
+                        db.session.commit()
+                        project_count += 1
+                        session[f'project_count_{current_user.id}'] = project_count
 
-              # Update the session variable with the new project count specific to the user
-            session[f'project_count_{current_user.id}'] = project_count
+                        if project_count == 2:
+                            return jsonify({'redirect': url_for('student.home')})
 
-            flash(f'Project {project_count} submitted successfully', category='success')
+                        flash(f'Project {project_count} submitted successfully', category='success')
+                        return jsonify({'success': True})
 
-                # Check if the student has submitted two projects and redirect if true
-            if project_count == 2:
-              flash('You have successfully submitted two projects', category='success')
-              return redirect(url_for('student.home'))
-          except Exception as e:
-              db.session.rollback()
-              flash('Error submitting project. Please try again.', category='danger')
-              print(f"Error: {str(e)}")
-  else:
-    flash("you are alone, Form group first", 'danger')
-    return redirect(url_for("student.form_group"))
-  return render_template('submit.html',title='submit you project idea', form=form)
+                    except Exception as e:
+                        db.session.rollback()
+                        flash('Error submitting project. Please try again.', category='danger')
+                        return jsonify({'error': str(e)}), 500
+    else:
+        flash("You are alone, form a group first", 'danger')
+        return jsonify({'redirect': url_for("student.form_group")})
+
+    return render_template('submit.html', title='Submit your project idea', form=form)
+
 
 @student.route('/logout')
 @login_required
